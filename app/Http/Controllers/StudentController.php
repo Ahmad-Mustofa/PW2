@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Student;
 use App\Models\Students;
 use Illuminate\Http\Request;
 
@@ -17,6 +18,79 @@ class StudentController extends Controller
         return view('admin.contents.student.index',[
             'students' => $students
         ]);
+    }
+    // method untuk menampilkan form tambah student
+    public function create(){
+        return view('admin.contents.student.create');
+    }
+
+    // method untuk menyimpan data studnet baru
+    public function store(Request $request){
+        // validasi request 
+        $request->validate([
+            'name' => 'required',
+            'nim' => 'required|numeric',
+            'major' => 'required',
+            'class' => 'required',
+        ]);
+
+        // simpan ke database
+        Students::create([
+            'name' => $request->name,
+            'nim' => $request->nim,
+            'major' => $request->major,
+            'class' => $request->class,
+        ]);
+
+        // kembalikan kehalaman student
+        return redirect('/admin/student')->with('message', 'Berhasil Menambahkan Student');
+    }
+
+    // method untuk menampilkan halaman edit
+    public function edit($id,){
+        // cari data student berdasarkan id
+        $student = Students::find($id); // Select * FOM students WHERE id = $id;
+        
+        return view('admin.contents.student.edit', [
+            'student' => $student
+        ]);
+    }
+
+    //method untuk menyimpan hasil update
+    public function update($id, Request $request){
+         // cari data student berdasarkan id
+         $student = Students::find($id); // Select * FOM students WHERE id = $id;
+
+         // validasi request 
+        $request->validate([
+            'name' => 'required',
+            'nim' => 'required|numeric',
+            'major' => 'required',
+            'class' => 'required',
+        ]);
+
+        // simpan perubahan
+        $student->update([
+            'name' => $request->name,
+            'nim' => $request->nim,
+            'major' => $request->major,
+            'class' => $request->class,
+        ]);
+         // kembalikan kehalaman student
+         return redirect('/admin/student')->with('message', 'Berhasil Mengedit Student');
+
+    }
+
+    // method untuk menghapus student
+    public function destroy($id){
+         // cari data student berdasarkan id
+         $student = Students::find($id); // Select * FOM students WHERE id = $id;
+
+         // hapus student
+         $student->delete();
+
+         // kembalikan kehalaman student
+         return redirect('/admin/student')->with('message', 'Berhasil Mengedit Student');
     }
 
 }
