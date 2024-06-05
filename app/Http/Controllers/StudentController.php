@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+<<<<<<< HEAD
 use App\Models\Course;
 use App\Models\Student;
+=======
+>>>>>>> origin/main
 use App\Models\Students;
 use Illuminate\Http\Request;
 
@@ -20,6 +23,7 @@ class StudentController extends Controller
             'students' => $students
         ]);
     }
+<<<<<<< HEAD
     // method untuk menampilkan form tambah student
     public function create(){
         // mendapatkan data courses
@@ -100,5 +104,7 @@ class StudentController extends Controller
          // kembalikan kehalaman student
          return redirect('/admin/student')->with('message', 'Berhasil Mengedit Student');
     }
+=======
+>>>>>>> origin/main
 
 }
