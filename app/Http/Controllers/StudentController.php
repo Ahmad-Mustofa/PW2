@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Course;
 use App\Models\Student;
 use App\Models\Students;
 use Illuminate\Http\Request;
@@ -21,7 +22,12 @@ class StudentController extends Controller
     }
     // method untuk menampilkan form tambah student
     public function create(){
-        return view('admin.contents.student.create');
+        // mendapatkan data courses
+        $courses = Course::all();
+
+        return view('admin.contents.student.create', [
+            'courses' => $courses
+        ]);
     }
 
     // method untuk menyimpan data studnet baru
