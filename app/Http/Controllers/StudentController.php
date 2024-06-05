@@ -30,7 +30,7 @@ class StudentController extends Controller
         ]);
     }
 
-    // method untuk menyimpan data studnet baru
+    // method untuk menyimpan data student baru
     public function store(Request $request){
         // validasi request 
         $request->validate([
@@ -38,6 +38,7 @@ class StudentController extends Controller
             'nim' => 'required|numeric',
             'major' => 'required',
             'class' => 'required',
+            'course_id' => 'nullable',
         ]);
 
         // simpan ke database
@@ -46,6 +47,7 @@ class StudentController extends Controller
             'nim' => $request->nim,
             'major' => $request->major,
             'class' => $request->class,
+            'course_id' => $request->course_id,
         ]);
 
         // kembalikan kehalaman student
